@@ -12,6 +12,7 @@ namespace DemoInterfaceCar
         {
             ICarRepository repo = new CarRepository(); //abstract/interface sammankopplas med concrete/class/kod (new)
 
+            ICarExpertRepository expert = (CarRepository)repo;
             
 
             repo.Add(new Car() { Make = "Volvo", Model = "V70" });
@@ -47,6 +48,11 @@ namespace DemoInterfaceCar
 
         ICar GetCarById(ICar car);
     }
+    public interface ICarExpertRepository
+    {
+        void SecretSetting();
+    }
+
 
     //Steg 3: Class/Concrete
 
@@ -56,9 +62,9 @@ namespace DemoInterfaceCar
         public string Model { get; set; }
     }
 
-    public class CarRepository : ICarRepository
+    public class CarRepository : ICarRepository, ICarExpertRepository
     {
-        public List<ICar> _cars = new List<ICar>();
+        private List<ICar> _cars = new List<ICar>();
 
         public void Add(ICar car)
         {
@@ -75,5 +81,9 @@ namespace DemoInterfaceCar
             return _cars;
         }
 
+        public void SecretSetting()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
