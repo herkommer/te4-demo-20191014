@@ -10,11 +10,8 @@ namespace DemoInterfaceCar
     {
         static void Main(string[] args)
         {
-            ICarRepository repo = new CarRepository(); //abstract/interface sammankopplas med concrete/class/kod (new)
-
-            ICarExpertRepository expert = (CarRepository)repo;
+            ICarRepository repo = new CarDB(); //abstract/interface sammankopplas med concrete/class/kod (new)
             
-
             repo.Add(new Car() { Make = "Volvo", Model = "V70" });
             repo.Add(new Car() { Make = "Volvo", Model = "V60" });
 
@@ -25,8 +22,6 @@ namespace DemoInterfaceCar
 
         }
     }
-
-
 
     //Steg 1: Domänmodellen
     //Car, CarStorage
@@ -48,11 +43,6 @@ namespace DemoInterfaceCar
 
         ICar GetCarById(ICar car);
     }
-    public interface ICarExpertRepository
-    {
-        void SecretSetting();
-    }
-
 
     //Steg 3: Class/Concrete
 
@@ -62,7 +52,7 @@ namespace DemoInterfaceCar
         public string Model { get; set; }
     }
 
-    public class CarRepository : ICarRepository, ICarExpertRepository
+    public class CarRepository : ICarRepository
     {
         private List<ICar> _cars = new List<ICar>();
 
@@ -83,6 +73,29 @@ namespace DemoInterfaceCar
 
         public void SecretSetting()
         {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class CarDB : ICarRepository
+    {
+        //Skriv kod för at prata med DB nu
+
+        public void Add(ICar car)
+        {
+            //INSERT INTO
+            throw new NotImplementedException();
+        }
+
+        public ICar GetCarById(ICar car)
+        {
+            //SELECT ... WHERE ...
+            throw new NotImplementedException();
+        }
+
+        public List<ICar> GetCars()
+        {
+            //SELECT * FROM Cars
             throw new NotImplementedException();
         }
     }
